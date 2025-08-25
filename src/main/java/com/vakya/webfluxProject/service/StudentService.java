@@ -1,6 +1,6 @@
 package com.vakya.webfluxProject.service;
 
-import com.vakya.webfluxProject.model.Student;
+import com.vakya.webfluxProject.model.StudentMDB;
 import com.vakya.webfluxProject.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -14,32 +14,32 @@ public class StudentService {
         this.repository = repository;
     }
 
-    public Mono<Student> createStudent(Student student) {
-        return repository.save(student);
+    public Mono<StudentMDB> createStudent(StudentMDB studentMDB) {
+        return repository.save(studentMDB);
     }
 
-    public Flux<Student> getAllStudents() {
+    public Flux<StudentMDB> getAllStudents() {
         return repository.findAll();
     }
 
-    public Flux<Student> findStudentsName(String name) {
+    public Flux<StudentMDB> findStudentsName(String name) {
         return repository.findByName(name);
     }
 
-    public Mono<Student> getStudentsId(String id) {
+    public Mono<StudentMDB> getStudentsId(String id) {
         return repository.findById(id);
     }
 
-    public Mono<Student> updateStudent(String id, Student updatedStudent) {
+    public Mono<StudentMDB> updateStudent(String id, StudentMDB updatedStudentMDB) {
         return repository.findById(id)
-                .flatMap(existingStudent -> {
-                    if (updatedStudent.getName() != null) {
-                        existingStudent.setName(updatedStudent.getName());
+                .flatMap(existingStudentMDB -> {
+                    if (updatedStudentMDB.getName() != null) {
+                        existingStudentMDB.setName(updatedStudentMDB.getName());
                     }
-                    if (updatedStudent.getAge() != 0) {
-                        existingStudent.setAge(updatedStudent.getAge());
+                    if (updatedStudentMDB.getAge() != 0) {
+                        existingStudentMDB.setAge(updatedStudentMDB.getAge());
                     }
-                    return repository.save(existingStudent);
+                    return repository.save(existingStudentMDB);
                 });
     }
 
